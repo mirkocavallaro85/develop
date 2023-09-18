@@ -19,7 +19,8 @@ for directory in *; do
     if [ -d "${directory}" ] ; then
         echo "$directory"
         for data_file in $directory/*; do
-            mongoimport --drop --host $HOST --port $PORT --db "$directory" --collection "$(basename $data_file .json)" --file $data_file $auth
+            # mongoimport --drop --host $HOST --port $PORT --db "$directory" --collection "$(basename $data_file .json)" --file $data_file $auth
+            mongoimport --drop --host $HOST --port $PORT --db "data" --collection "$(basename $data_file .json)" --file $data_file $auth
         done
     fi
 done
