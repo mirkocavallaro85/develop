@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -38,10 +39,18 @@ func main() {
 			panic(err)
 		}
 
-		fmt.Println(collega)
+		// Converti la struttura collega in JSON
+		collegaJSON, err := json.Marshal(collega)
+		if err != nil {
+			panic(err)
+		}
+
+		fmt.Println(string(collegaJSON))
 
 		// Scrivi il JSON nella risposta
-		fmt.Fprintf(w, "%s", collega)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		w.Write(collegaJSON)
 
 	})
 
